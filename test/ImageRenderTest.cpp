@@ -10,16 +10,17 @@ class ImageRenderTest : public ::testing::Test {
 
 protected:
     virtual void SetUp() {
-        render = vtkSmartPointer<ImageRender>::New();
+        this->render = vtkSmartPointer<ImageRender>::New();
+
     }
 
     vtkSmartPointer<ImageRender> render;
 };
 
 TEST_F(ImageRenderTest, loadAndStart) {
-    render->setPath("../res/brain.mhd");
-    render->load();
-    render->start();
+    this->render->setPath("../res/brain.mhd");
+    this->render->load();
+    this->render->start();
 }
 
 

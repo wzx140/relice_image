@@ -9,7 +9,11 @@
 #include <vtkSmartPointer.h>
 #include <vtkImageReslice.h>
 
+#include "ImageInteractionCallback.h"
 
+/**
+ * render the image
+ */
 class ImageRender : public vtkObject {
 private:
 
@@ -45,9 +49,19 @@ public:
     void load();
 
     /**
+     * add observer to listen mouse event
+     * @param callback the object must inherit vtkCommand
+     */
+    void addObserver(vtkSmartPointer<ImageInteractionCallback> callback);
+
+    /**
      * start to display in window
      */
     void start();
+
+    const vtkSmartPointer<vtkRenderWindowInteractor> &getInteractor() const;
+
+    const vtkSmartPointer<vtkImageReslice> &getReslice() const;
 };
 
 

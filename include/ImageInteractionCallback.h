@@ -36,15 +36,7 @@ public:
 
     ImageInteractionCallback();
 
-    int getSlicing() const;
-
-    void setSlicing(int slicing);
-
-    const vtkSmartPointer<vtkImageReslice> &getReslice() const;
-
     void setReslice(const vtkSmartPointer<vtkImageReslice> &reslice);
-
-    const vtkSmartPointer<vtkRenderWindowInteractor> &getInteractor() const;
 
     void setInteractor(const vtkSmartPointer<vtkRenderWindowInteractor> &interactor);
 

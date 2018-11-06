@@ -12,6 +12,9 @@
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
 #include <vtkInteractorStyleImage.h>
+#include <vtkLookupTable.h>
+#include <vtkImageMapToColors.h>
+
 
 using std::string;
 
@@ -59,25 +62,54 @@ void ImageRender::load() {
     this->reslice->SetResliceAxes(resliceMatrix);
     this->reslice->SetInterpolationModeToLinear();
 
+//    build color table to map the color
+    auto colorTable = vtkSmartPointer<vtkLookupTable>::New();
+    colorTable->SetRange(0, 1000);
+    colorTable->SetValueRange(0.0, 1.0);
+    colorTable->SetSaturationRange(0.0, 0.0);
+    colorTable->SetRampToLinear();
+    colorTable->Build();
+
+//    map the color
+    auto colorMap = vtkSmartPointer<vtkImageMapToColors>::New();
+    colorMap->SetLookupTable(colorTable);
+    colorMap->SetInputConnection(this->reslice->GetOutputPort());
+
 //    display the slice
     auto actor = vtkSmartPointer<vtkImageActor>::New();
-    actor->GetMapper()->SetInputConnection(this->reslice->GetOutputPort());
+    actor->GetMapper()->SetInputConnection(colorMap->GetOutputPort());
     auto render = vtkSmartPointer<vtkRenderer>::New();
     render->AddActor(actor);
-    render->SetBackground(1.0, 1.0, 1.0);
+//    black
+    render->SetBackground(0, 0, 0);
     auto window = vtkSmartPointer<vtkRenderWindow>::New();
     window->AddRenderer(render);
-    window->Render();
     auto style = vtkSmartPointer<vtkInteractorStyleImage>::New();
-    this->interactor->SetRenderWindow(window);
     this->interactor->SetInteractorStyle(style);
+    this->interactor->SetRenderWindow(window);
 
+    this->interactor->Initialize();
+}
+
+void ImageRender::addObserver(vtkSmartPointer<ImageInteractionCallback> callback) {
+//    LeftButtonReleaseEvent do not work if you just use interactor to add Observer
+    this->interactor->GetInteractorStyle()->AddObserver(vtkCommand::MouseMoveEvent, callback);
+    this->interactor->GetInteractorStyle()->AddObserver(vtkCommand::LeftButtonPressEvent, callback);
+    this->interactor->GetInteractorStyle()->AddObserver(vtkCommand::LeftButtonReleaseEvent, callback);
 }
 
 void ImageRender::start() {
-    this->interactor->Initialize();
     this->interactor->Start();
 }
+
+const vtkSmartPointer<vtkRenderWindowInteractor> &ImageRender::getInteractor() const {
+    return interactor;
+}
+
+const vtkSmartPointer<vtkImageReslice> &ImageRender::getReslice() const {
+    return reslice;
+}
+
 
 
 

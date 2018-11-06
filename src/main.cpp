@@ -1,6 +1,27 @@
-#include <gtest/gtest.h>
+#include <vtkSmartPointer.h>
+#include <vtkMatrix4x4.h>
+
+#include "../include/ImageRender.h"
+#include "../include/ImageInteractionCallback.h"
 
 int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    auto render = vtkSmartPointer<ImageRender>::New();
+    render->setPath("../res/brain.mhd");
+    render->load();
+
+    auto callback = vtkSmartPointer<ImageInteractionCallback>::New();
+    callback->setReslice(render->getReslice());
+    callback->setInteractor(render->getInteractor());
+
+    render->addObserver(callback);
+    render->start();
+    return 0;
 }
+
+//#include <gtest/gtest.h>
+//
+//int main(int argc, char **argv) {
+//    ::testing::InitGoogleTest(&argc, argv);
+//    return RUN_ALL_TESTS();
+//}
+
