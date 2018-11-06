@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
-project(relice_mouse)
+project(slice_image)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE Debug)
 
 aux_source_directory(src SOURCE_FILES)
