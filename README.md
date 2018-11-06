@@ -1,4 +1,4 @@
-## slice image
+## Slice Image
 read from mhd image file, and you can use mouse to change the slice of the image 
 ### PREREQUISITES
 * GCC
@@ -20,5 +20,5 @@ if you want to run the test, try the following steps
 1. undo comment out the main function for GTest in main.cpp and comment out the default main function
 2. introduce the GTest Libraries, see [BUILD](#BUILD)
 ### PROBLEM
-if you meet up with the problem *vtkMetaImageReader (0x55e565f78af0): MetaImage cannot parse file.*, you can change the path in *render->setPath("../res/brain.mhd");*.
+if you meet up with the problem *vtkMetaImageReader (0x55e565f78af0): MetaImage cannot parse file.*, you can change the path in *render->setPath("../res/brain.mhd");* in main.cpp
 > the target can not find the file because you enable the out-of-source-build
