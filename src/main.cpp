@@ -1,12 +1,8 @@
 #include <vtkSmartPointer.h>
-#include <vtkMatrix4x4.h>
-
-#include "../include/ImageRender.h"
-#include "../include/ImageInteractionCallback.h"
 
 int main(int argc, char **argv) {
     auto render = vtkSmartPointer<ImageRender>::New();
-    render->setPath("../res/brain.mhd");
+    render->setPath("res/brain.mhd");
     render->load();
 
     auto callback = vtkSmartPointer<ImageInteractionCallback>::New();
