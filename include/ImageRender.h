@@ -39,7 +39,7 @@ public:
 
     /**
      * set the path of the image
-     * @param path must have a prefix of "../"
+     * @param path the path of the data
      */
     void setPath(const std::string &path);
 
