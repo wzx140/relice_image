@@ -42,11 +42,3 @@ TEST_F(ImageInteractionCallbackTest, Multiply) {
     matrix->SetElement(3, 3, center[3]);
     matrix->Print(std::cout);
 }
-
-TEST_F(ImageInteractionCallbackTest, callback) {
-    this->callback->setReslice(render->getReslice());
-    this->callback->setInteractor(render->getInteractor());
-
-    this->render->addObserver(callback);
-    this->render->start();
-}

@@ -1,5 +1,7 @@
 #include <vtkSmartPointer.h>
 
+#include "../include/ImageRender.h"
+
 int main(int argc, char **argv) {
     auto render = vtkSmartPointer<ImageRender>::New();
     render->setPath("res/brain.mhd");

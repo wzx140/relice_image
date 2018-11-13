@@ -11,7 +11,6 @@ class ImageRenderTest : public ::testing::Test {
 protected:
     virtual void SetUp() {
         this->render = vtkSmartPointer<ImageRender>::New();
-
     }
 
     vtkSmartPointer<ImageRender> render;
