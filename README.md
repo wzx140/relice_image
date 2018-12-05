@@ -4,26 +4,26 @@ read from mhd image file, and you can use mouse to change the slice of the image
 * GCC
 * VTK
 * CMake
-* googletest  
-need it only if you want to run test
+
 ### BUILD
-1. Change the value of *VTK_ROOT* in *CMakeLists.txt*  
-If you use linux, you can add your VTK to environment variable and comment out *VTK_ROOT*
+#### LINUX
+- just run `cd slice_image`, `cmake .`and `make` 
+  
+- or you can use out-of-source-build
+```
+cd slice_image
+mkdir build
+cd build
+cmake ..
+make
+```
+- If VTK is not installed but compiled on your system, you will need to specify the path to your VTK build  
+`cmake -DVTK_DIR:PATH=/home/me/vtk_build ..`
+#### WINDOWS
+Be sure to add the VTK **bin** and **lib** directory to your path. This will resolve the VTK dll's at run time
 
-2. Change the value of *CMAKE_BUILD_TYPE* in keep with your version of VTK
-
-3. `cd slice_image` 
-
-4. `cmake .`
-
-5. `make`
-
-6. `./slice_image`
+### RUN
+`./slice_image`
 
 ### TEST
-If you want to run the test, try the following steps
-1. undo comment out the main function for GTest in src/main.cpp and comment out the default main function
-2. undo comment out the *GTEST_ROOT*, and change the value
-
-### PROBLEM
-If you meet up with the problem *vtkMetaImageReader (0x55e565f78af0): MetaImage cannot parse file.*, maybe because you use the out-of-source-build. You can copy the dir *res* to your build path
+If you want to run the test, just run `cd test` and `./slice_image_test`

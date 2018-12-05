@@ -15,7 +15,7 @@ protected:
 
     virtual void SetUp() {
         this->render = vtkSmartPointer<ImageRender>::New();
-        this->render->setPath("res/brain.mhd");
+        this->render->setPath("../res/brain.mhd");
         this->render->load();
 
         this->callback = vtkSmartPointer<ImageInteractionCallback>::New();

@@ -17,7 +17,7 @@ protected:
 };
 
 TEST_F(ImageRenderTest, loadAndStart) {
-    this->render->setPath("res/brain.mhd");
+    this->render->setPath("../res/brain.mhd");
     this->render->load();
     this->render->start();
 }
